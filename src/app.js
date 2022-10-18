@@ -2,6 +2,8 @@ import express from "express";
 import morgan from "morgan";
 import pkg from "../package.json";
 
+import questionsRoutes from "./routes/questions.routes";
+
 const app = express();
 
 app.set("pkg", pkg);
@@ -18,4 +20,5 @@ app.get("/", (req, res) => {
     });
 });
 
+app.use("/api/questions", questionsRoutes);
 export default app;
