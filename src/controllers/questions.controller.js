@@ -31,12 +31,18 @@ export const getQuestionById = async (req, res) => {
 };
 
 export const updateQuestionById = async (req, res) => {
-    const updatedQuestion = await Question.findByIdAndUpdate(
-        req.params.questionId,
-        req.body,
-        { new: true }
-    );
-    res.status(200).json(updatedQuestion);
+    try {
+        const updatedQuestion = await Question.findByIdAndUpdate(
+            req.params.questionId,
+            req.body,
+            { new: true }
+        );
+        if (!updatedQuestion)
+            return res.status(400).json({ message: "Question not found" });
+        res.status(200).json(updatedQuestion);
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 export const deleteQuestionById = async (req, res) => {
