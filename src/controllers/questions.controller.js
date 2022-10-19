@@ -11,7 +11,8 @@ export const createQuestion = async (req, res) => {
 };
 
 export const getQuestions = async (req, res) => {
-    res.json("get");
+    const questions = await Question.find();
+    res.json(questions);
 };
 
 export const getQuestionById = async (req, res) => {
