@@ -35,7 +35,7 @@ export const updateQuestionById = async (req, res) => {
         req.params.questionId,
         req.body
     );
-    res.status(200).json(updatedProduct);
+    res.status(200).json(updatedQuestion);
 };
 
 export const deleteQuestionById = async (req, res) => {
