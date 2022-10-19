@@ -59,10 +59,8 @@ export const login = async (req, res) => {
             .status(401)
             .json({ token: null, message: "Wrong credentials" });
 
-    console.log(userFound);
-
     const token = jwt.sign({ id: userFound._id }, config.SECRET, {
-        expiresIn: 3600,
+        expiresIn: 86400,
     });
 
     res.json({ token });

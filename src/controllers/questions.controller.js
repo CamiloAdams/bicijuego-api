@@ -33,7 +33,8 @@ export const getQuestionById = async (req, res) => {
 export const updateQuestionById = async (req, res) => {
     const updatedQuestion = await Question.findByIdAndUpdate(
         req.params.questionId,
-        req.body
+        req.body,
+        { new: true }
     );
     res.status(200).json(updatedQuestion);
 };
