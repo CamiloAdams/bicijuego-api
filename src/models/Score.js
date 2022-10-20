@@ -6,7 +6,7 @@ const scoreSchema = new Schema(
             ref: "User",
             type: Schema.Types.ObjectId,
         },
-        respuestas_correctas: int,
+        respuestas_correctas: Number,
     },
     {
         timestamps: true,

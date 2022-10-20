@@ -32,6 +32,7 @@ const userSchema = new Schema(
                 type: Schema.Types.ObjectId,
             },
         ],
+        high_score: Number,
     },
     {
         timestamps: true,

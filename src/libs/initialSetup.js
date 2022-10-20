@@ -32,6 +32,7 @@ export const createAdminUser = async () => {
         email: "admin@bicijuego",
         password: await User.encryptPassword("baguiadmin"),
         guias_completadas: [],
+        high_score: 0,
     });
 
     const foundRoles = await Role.find({ name: { $in: roles } });

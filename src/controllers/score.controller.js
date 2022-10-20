@@ -1,22 +1,53 @@
-import Question from "../models/Question";
+import Score from "../models/Score";
+import User from "../models/User";
+import jwt from "jsonwebtoken";
+import config from "../config";
 
-export const createQuestion = async (req, res) => {
-    const { pregunta, respuesta, imgURL } = req.body;
+export const createScore = async (req, res) => {
+    try {
+        const token = req.headers["x-access-token"];
 
-    const newQuestion = new Question({ pregunta, respuesta, imgURL });
+        if (!token)
+            return res.status(403).json({ message: "No token provided" });
 
-    const productSaved = await newQuestion.save();
+        const decoded = await jwt.verify(token, config.SECRET);
 
-    res.status(201).json(productSaved);
+        const user = await User.findById(decoded.id, { password: 0 });
+
+        if (!user) return res.status(404).json({ message: "No user found" });
+
+        const { respuestas_correctas } = req.body;
+
+        if (respuestas_correctas > user.high_score) {
+            const updateHighScore = await User.findByIdAndUpdate(
+                decoded.id,
+                { high_score: respuestas_correctas },
+                { new: true }
+            );
+            console.log(updateHighScore);
+        }
+
+        const newScore = new Score({
+            id_usuario: decoded.id,
+            respuestas_correctas,
+        });
+
+        const scoreSaved = await newScore.save();
+
+        res.status(201).json(scoreSaved);
+    } catch (error) {
+        console.log(error);
+        return res.status(401).json({ message: "Unauthorized" });
+    }
 };
 
-export const getQuestions = async (req, res) => {
-    const questions = await Question.find();
-    res.json(questions);
+export const getScores = async (req, res) => {
+    const scores = await Score.find();
+    res.json(scores);
 };
 
-export const getQuestionById = async (req, res) => {
-    await Question.findById(req.params.questionId, function (err, data) {
+export const getScoreById = async (req, res) => {
+    await Score.findById(req.params.scoreId, function (err, data) {
         if (!err) {
             res.status(200).json(data);
         } else {
@@ -30,23 +61,23 @@ export const getQuestionById = async (req, res) => {
         });
 };
 
-export const updateQuestionById = async (req, res) => {
+export const updateScoreById = async (req, res) => {
     try {
-        const updatedQuestion = await Question.findByIdAndUpdate(
-            req.params.questionId,
+        const updatedScore = await Question.findByIdAndUpdate(
+            req.params.scoreId,
             req.body,
             { new: true }
         );
-        if (!updatedQuestion)
-            return res.status(400).json({ message: "Question not found" });
-        res.status(200).json(updatedQuestion);
+        if (!updatedScore)
+            return res.status(400).json({ message: "Score not found" });
+        res.status(200).json(updatedScore);
     } catch (error) {
         console.log(error);
     }
 };
 
-export const deleteQuestionById = async (req, res) => {
-    const { questionId } = req.params;
-    await Question.findByIdAndDelete(questionId);
+export const deleteScoreById = async (req, res) => {
+    const { scoreId } = req.params;
+    await Score.findByIdAndDelete(scoreId);
     res.status(204).json();
 };

@@ -34,6 +34,7 @@ export const register = async (req, res) => {
         email,
         password: await User.encryptPassword(password),
         guias_completadas: [],
+        high_score: 0,
     });
 
     // if (roles) {

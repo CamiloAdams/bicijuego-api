@@ -7,6 +7,7 @@ import { createRoles, createAdminUser } from "./libs/initialSetup";
 import questionsRoutes from "./routes/questions.routes";
 import authRoutes from "./routes/auth.routes";
 import guidesRoutes from "./routes/guides.routes";
+import scoreRoutes from "./routes/score.routes";
 
 const app = express();
 
@@ -30,4 +31,5 @@ app.get("/", (req, res) => {
 app.use("/api/questions", questionsRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/guides", guidesRoutes);
+app.use("/api/scores", scoreRoutes);
 export default app;
