@@ -3,10 +3,19 @@ import jwt from "jsonwebtoken";
 import config from "../config";
 import Role from "../models/Role";
 
+/**
+ * Used to register a new user in database
+ * @param {*} req
+ * @param {*} res
+ * @returns res.json with the authorization token
+ */
+
 export const register = async (req, res) => {
+    //Get the parameters stored in req.body
     const { username, nombres, apellidos, fecha_nacimiento, email, password } =
         req.body;
 
+    //check if username or email already exists
     const userFound = await User.findOne({ username });
     const emailFound = await User.findOne({ email });
 
@@ -16,6 +25,7 @@ export const register = async (req, res) => {
     if (emailFound)
         return res.status(400).json({ message: "Email already in use" });
 
+    // Create a new user
     const newUser = new User({
         username,
         nombres,
@@ -30,10 +40,12 @@ export const register = async (req, res) => {
     //     const foundRoles = await Role.find({ name: { $in: roles } });
     //     newUser.roles = foundRoles.map((role) => role._id);
     // } else {
+    // Assign the user role to the new user
     const role = await Role.findOne({ name: "user" });
     newUser.roles = [role._id];
     // }
 
+    // Save new user in db
     const savedUser = await newUser.save();
 
     const token = jwt.sign({ id: savedUser._id }, config.SECRET, {
