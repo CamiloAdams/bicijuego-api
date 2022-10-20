@@ -63,7 +63,7 @@ export const getScoreById = async (req, res) => {
 
 export const updateScoreById = async (req, res) => {
     try {
-        const updatedScore = await Question.findByIdAndUpdate(
+        const updatedScore = await Score.findByIdAndUpdate(
             req.params.scoreId,
             req.body,
             { new: true }

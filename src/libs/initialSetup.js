@@ -22,7 +22,6 @@ export const createAdminUser = async () => {
     const userFound = await User.findOne({ email: "admin@bicijuego" });
 
     if (userFound) return;
-    const roles = ["admin", "moderator", "user"];
 
     const newUser = new User({
         username: "admin",
@@ -35,7 +34,8 @@ export const createAdminUser = async () => {
         high_score: 0,
     });
 
-    const foundRoles = await Role.find({ name: { $in: roles } });
+    const foundRoles = await Role.find({ name: "admin" });
+
     newUser.roles = foundRoles.map((role) => role._id);
 
     const admin = await newUser.save();
