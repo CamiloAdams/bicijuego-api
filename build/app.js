@@ -7,6 +7,7 @@ exports["default"] = void 0;
 var _express = _interopRequireDefault(require("express"));
 var _morgan = _interopRequireDefault(require("morgan"));
 var _package = _interopRequireDefault(require("../package.json"));
+var _cors = _interopRequireDefault(require("cors"));
 var _initialSetup = require("./libs/initialSetup");
 var _questions = _interopRequireDefault(require("./routes/questions.routes"));
 var _auth = _interopRequireDefault(require("./routes/auth.routes"));
@@ -20,6 +21,7 @@ var app = (0, _express["default"])();
 app.set("pkg", _package["default"]);
 app.use(_express["default"].json());
 app.use((0, _morgan["default"])("dev"));
+app.use((0, _cors["default"])());
 app.get("/", function (req, res) {
   res.json({
     name: app.get("pkg").name,
