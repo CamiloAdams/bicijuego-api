@@ -5,7 +5,7 @@ import https from "https";
 
 import "./database";
 
-const certificate = fs.readFile(
+const certificate = fs.readFileSync(
     "./bicijuego.online/certificate.crt",
     "utf8",
     (err) => {
@@ -13,7 +13,7 @@ const certificate = fs.readFile(
     }
 );
 
-const privateKey = fs.readFile(
+const privateKey = fs.readFileSync(
     "./bicijuego.online/private.key",
     "utf8",
     (err) => {
