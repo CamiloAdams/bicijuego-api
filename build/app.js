@@ -34,6 +34,6 @@ app.use("/api/questions", _questions["default"]);
 app.use("/api/auth", _auth["default"]);
 app.use("/api/guides", _guides["default"]);
 app.use("/api/scores", _score["default"]);
-app.use("/api/users", _user["default"]);
+app.use("/api/user", _user["default"]);
 var _default = app;
 exports["default"] = _default;
