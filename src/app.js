@@ -35,5 +35,5 @@ app.use("/api/questions", questionsRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/guides", guidesRoutes);
 app.use("/api/scores", scoreRoutes);
-app.use("/api/users", userRoutes);
+app.use("/api/user", userRoutes);
 export default app;
