@@ -47,17 +47,27 @@ export const register = async (req, res) => {
     // }
 
     // Save new user in db
-    const savedUser = await newUser.save();
-
+    const savedUser = await (
+        await newUser.save()
+    ).populate("roles", {
+        _id: 0,
+    });
     const token = jwt.sign({ id: savedUser._id }, config.SECRET, {
         expiresIn: 86400,
     });
-    res.json({ token });
+    const roles = [];
+
+    savedUser.roles.forEach((role) => {
+        roles.push(role.name);
+    });
+
+    res.json({ token, roles: roles });
 };
 
 export const login = async (req, res) => {
     const userFound = await User.findOne({ email: req.body.email }).populate(
-        "roles"
+        "roles",
+        { _id: 0 }
     );
 
     if (!userFound) return res.status(400).json({ message: "User not found" });
@@ -76,5 +86,11 @@ export const login = async (req, res) => {
         expiresIn: 86400,
     });
 
-    res.json({ token });
+    const roles = [];
+
+    userFound.roles.forEach((role) => {
+        roles.push(role.name);
+    });
+
+    res.json({ token, roles: roles });
 };

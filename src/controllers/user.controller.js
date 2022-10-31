@@ -25,7 +25,12 @@ export const getUserInformation = async (req, res) => {
         const user = await User.findById(decoded.id, {
             password: 0,
             roles: 0,
-        }).populate("guias_completadas");
+        }).populate("guias_completadas", {
+            texto: 0,
+            imagenes: 0,
+            createdAt: 0,
+            updatedAt: 0,
+        });
 
         if (!user) return res.status(404).json({ message: "No user found" });
 
