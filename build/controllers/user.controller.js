@@ -67,7 +67,12 @@ var getUserInformation = /*#__PURE__*/function () {
             return _User["default"].findById(decoded.id, {
               password: 0,
               roles: 0
-            }).populate("guias_completadas");
+            }).populate("guias_completadas", {
+              texto: 0,
+              imagenes: 0,
+              createdAt: 0,
+              updatedAt: 0
+            });
           case 9:
             user = _context2.sent;
             if (user) {

@@ -22,7 +22,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var register = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var _req$body, username, nombres, apellidos, fecha_nacimiento, email, password, userFound, emailFound, newUser, role, savedUser, token;
+    var _req$body, username, nombres, apellidos, fecha_nacimiento, email, password, userFound, emailFound, newUser, role, savedUser, token, roles;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -92,16 +92,26 @@ var register = /*#__PURE__*/function () {
             _context.next = 29;
             return newUser.save();
           case 29:
+            _context.next = 31;
+            return _context.sent.populate("roles", {
+              _id: 0
+            });
+          case 31:
             savedUser = _context.sent;
             token = _jsonwebtoken["default"].sign({
               id: savedUser._id
             }, _config["default"].SECRET, {
               expiresIn: 86400
             });
-            res.json({
-              token: token
+            roles = [];
+            savedUser.roles.forEach(function (role) {
+              roles.push(role.name);
             });
-          case 32:
+            res.json({
+              token: token,
+              roles: roles
+            });
+          case 36:
           case "end":
             return _context.stop();
         }
@@ -115,7 +125,7 @@ var register = /*#__PURE__*/function () {
 exports.register = register;
 var login = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-    var userFound, matchPassword, token;
+    var userFound, matchPassword, token, roles;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -123,7 +133,9 @@ var login = /*#__PURE__*/function () {
             _context2.next = 2;
             return _User["default"].findOne({
               email: req.body.email
-            }).populate("roles");
+            }).populate("roles", {
+              _id: 0
+            });
           case 2:
             userFound = _context2.sent;
             if (userFound) {
@@ -152,10 +164,15 @@ var login = /*#__PURE__*/function () {
             }, _config["default"].SECRET, {
               expiresIn: 86400
             });
-            res.json({
-              token: token
+            roles = [];
+            userFound.roles.forEach(function (role) {
+              roles.push(role.name);
             });
-          case 12:
+            res.json({
+              token: token,
+              roles: roles
+            });
+          case 14:
           case "end":
             return _context2.stop();
         }
