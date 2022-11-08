@@ -41,7 +41,6 @@ export const getUserStats = async (req, res) => {
                 avg_score: userAvg,
                 users_avg: usersAvg,
             },
-
             scores_history: scoresHistory,
         });
     } catch (error) {
@@ -208,6 +207,7 @@ async function getUsersScoresAndAge() {
     let c = getAmplitud(r, m);
 
     let statsObjectj = crearObjetoIntervalos(ageMax, ageMin, m, r, c);
+    console.log(statsObjectj);
 
     for (let index = 0; index < users.length; index++) {
         const element = users[index];
