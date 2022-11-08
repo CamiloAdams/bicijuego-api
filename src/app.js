@@ -10,6 +10,7 @@ import authRoutes from "./routes/auth.routes";
 import guidesRoutes from "./routes/guides.routes";
 import scoreRoutes from "./routes/score.routes";
 import userRoutes from "./routes/user.routes";
+import statsRoutes from "./routes/stats.routes";
 
 const app = express();
 
@@ -36,4 +37,5 @@ app.use("/api/auth", authRoutes);
 app.use("/api/guides", guidesRoutes);
 app.use("/api/scores", scoreRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/stats", statsRoutes);
 export default app;
