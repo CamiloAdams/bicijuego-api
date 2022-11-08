@@ -278,8 +278,6 @@ function crearObjetoIntervalos(xmax, xmin, m, r, c) {
             edad_max: (xmin += c),
             usuarios: [],
         };
-
-        xmin += c;
     }
     console.log(statsObject);
 
