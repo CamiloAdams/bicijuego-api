@@ -231,7 +231,8 @@ async function getUsersScoresAndAge() {
     for (var key in statsObjectj) {
         let element = statsObjectj[key];
         statsObjectj[key].high_score_avg =
-            element.high_score_avg / element.num_usuarios;
+            element.high_score_avg /
+            (element.num_usuarios == 0 ? 1 : element.num_usuarios);
     }
     return {
         age_min: ageMin,
