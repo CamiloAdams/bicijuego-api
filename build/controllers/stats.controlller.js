@@ -478,7 +478,7 @@ function _getUsersScoresAndAge() {
           case 32:
             for (key in statsObjectj) {
               _element2 = statsObjectj[key];
-              statsObjectj[key].high_score_avg = _element2.high_score_avg / _element2.num_usuarios;
+              statsObjectj[key].high_score_avg = _element2.high_score_avg / (_element2.num_usuarios == 0 ? 1 : _element2.num_usuarios);
             }
             return _context9.abrupt("return", {
               age_min: ageMin,
@@ -520,7 +520,6 @@ function crearObjetoIntervalos(xmax, xmin, m, r, c) {
     edad_max: xmin += c,
     usuarios: []
   };
-  xmin += c;
   for (var index = 1; index < m; index++) {
     statsObject["".concat(xmin, ".1 - ").concat(xmin + c)] = {
       high_score_avg: 0,
@@ -529,7 +528,7 @@ function crearObjetoIntervalos(xmax, xmin, m, r, c) {
       edad_max: xmin += c,
       usuarios: []
     };
-    xmin += c;
   }
+  console.log(statsObject);
   return statsObject;
 }
