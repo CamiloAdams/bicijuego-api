@@ -14,6 +14,7 @@ var _auth = _interopRequireDefault(require("./routes/auth.routes"));
 var _guides = _interopRequireDefault(require("./routes/guides.routes"));
 var _score = _interopRequireDefault(require("./routes/score.routes"));
 var _user = _interopRequireDefault(require("./routes/user.routes"));
+var _stats = _interopRequireDefault(require("./routes/stats.routes"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 var app = (0, _express["default"])();
 (0, _initialSetup.createRoles)();
@@ -35,5 +36,6 @@ app.use("/api/auth", _auth["default"]);
 app.use("/api/guides", _guides["default"]);
 app.use("/api/scores", _score["default"]);
 app.use("/api/user", _user["default"]);
+app.use("/api/stats", _stats["default"]);
 var _default = app;
 exports["default"] = _default;
