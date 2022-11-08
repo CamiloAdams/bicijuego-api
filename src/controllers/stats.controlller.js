@@ -207,7 +207,6 @@ async function getUsersScoresAndAge() {
     let c = getAmplitud(r, m);
 
     let statsObjectj = crearObjetoIntervalos(ageMax, ageMin, m, r, c);
-    console.log(statsObjectj);
 
     for (let index = 0; index < users.length; index++) {
         const element = users[index];
@@ -282,6 +281,7 @@ function crearObjetoIntervalos(xmax, xmin, m, r, c) {
 
         xmin += c;
     }
+    console.log(statsObject);
 
     return statsObject;
 }
