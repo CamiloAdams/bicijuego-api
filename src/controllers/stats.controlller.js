@@ -269,7 +269,6 @@ function crearObjetoIntervalos(xmax, xmin, m, r, c) {
         edad_max: (xmin += c),
         usuarios: [],
     };
-    xmin += c;
     for (let index = 1; index < m; index++) {
         statsObject[`${xmin}.1 - ${xmin + c}`] = {
             high_score_avg: 0,
